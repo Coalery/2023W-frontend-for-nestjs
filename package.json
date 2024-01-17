@@ -1,5 +1,8 @@
 {
   "name": "2023w-frontend-for-nestjs",
+  "author": {
+    "name": "Coalery"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
