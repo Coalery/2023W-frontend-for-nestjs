@@ -9,7 +9,8 @@ body {
   background: #FAFAFA;
 }
 
-.backend-url-input-container {
+.backend-url-input-container,
+.top-menu-bar {
   background: #FAFAFA;
   box-shadow: 0px 0px 10px 10px #FAFAFA;
 }

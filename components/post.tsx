@@ -1,7 +1,7 @@
-import { timeElapsed } from "@/util/time";
-import BookmarkIcon from "./bookmark-icon";
-import CommentIcon from "./comment-icon";
-import HeartIcon from "./heart-icon";
+import { timeElapsed } from '@/util/time';
+import BookmarkIcon from './icon/bookmark-icon';
+import CommentIcon from './icon/comment-icon';
+import HeartIcon from './icon/heart-icon';
 
 type Props = {
   title: string;
