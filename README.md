@@ -21,4 +21,4 @@ npm run dev
 
 ### Deploy
 
-`main` 브랜치에 머지하면, 액션에서 정적 사이트를 빌드하고, 이를 Github Pages로 배포합니다.
+`main` 브랜치에 머지하면 vercel로 배포합니다.
