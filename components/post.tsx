@@ -1,5 +1,4 @@
 import { timeElapsed } from '@/util/time';
-import BookmarkIcon from './icon/bookmark-icon';
 import CommentIcon from './icon/comment-icon';
 import HeartIcon from './icon/heart-icon';
 
@@ -8,7 +7,6 @@ type Props = {
   content: string;
   createdAt: Date;
   likeCount: number;
-  bookmarkCount: number;
   commentCount: number;
 };
 
@@ -17,7 +15,6 @@ export default function Post({
   content,
   createdAt,
   likeCount,
-  bookmarkCount,
   commentCount,
 }: Props) {
   return (
@@ -29,7 +26,6 @@ export default function Post({
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <HeartIcon count={likeCount} />
-          <BookmarkIcon count={bookmarkCount} />
           <CommentIcon count={commentCount} />
         </div>
         <span className="text-sm text-gray-500">{timeElapsed(createdAt)}</span>

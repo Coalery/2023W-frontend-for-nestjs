@@ -14,7 +14,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -22,7 +21,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -30,7 +28,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -38,7 +35,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -46,7 +42,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -54,7 +49,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -62,7 +56,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -70,7 +63,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />
@@ -78,7 +70,6 @@ export default function Home() {
           title="타이틀빰빰"
           content="빰빰바밤빰"
           likeCount={1234}
-          bookmarkCount={1234}
           commentCount={1234}
           createdAt={new Date(2024, 0, 1, 0, 0, 0)}
         />

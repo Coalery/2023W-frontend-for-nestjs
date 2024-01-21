@@ -1,10 +1,11 @@
+import { urlStorage } from '@/common/baseUrl';
 import { useEffect, useState } from 'react';
 
 export default function BackendUrlInput() {
   const [backendUrl, setBackendUrl] = useState('');
 
   useEffect(() => {
-    const backendUrl = localStorage.getItem('backendUrl') || '';
+    const backendUrl = urlStorage.get();
     setBackendUrl(backendUrl);
   }, []);
 
@@ -15,7 +16,7 @@ export default function BackendUrlInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem('backendUrl', backendUrl);
+    urlStorage.set(backendUrl);
     window.location.reload();
   };
 
