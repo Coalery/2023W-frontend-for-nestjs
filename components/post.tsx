@@ -3,6 +3,7 @@ import CommentIcon from './icon/comment-icon';
 import HeartIcon from './icon/heart-icon';
 
 type Props = {
+  id: string;
   title: string;
   content: string;
   createdAt: Date;

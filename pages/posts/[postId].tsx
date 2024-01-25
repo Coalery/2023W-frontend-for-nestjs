@@ -49,6 +49,7 @@ export default function Home() {
       {error && <ErrorNotifier error={error} />}
       {postData && (
         <Post
+          id={postData.id}
           title={postData.title}
           content={postData.content}
           createdAt={new Date(postData.createdAt)}
