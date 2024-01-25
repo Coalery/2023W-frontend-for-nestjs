@@ -1,21 +1,53 @@
 import { useState } from 'react';
-import CloseIcon from './icon/close-icon';
+import axios from 'axios';
+
+import { wrapRequestUrl } from '@/common/baseUrl';
+import CloseIcon from '@/components/icon/close-icon';
 
 type Props = {
   open: boolean;
-  onClose: () => void;
+  close: () => void;
 };
 
-export default function LoginModal({ open, onClose }: Props) {
+export default function LoginModal({ open, close }: Props) {
   const [signUpMode, setSignUpMode] = useState<boolean>(false);
 
   const [userId, setUserId] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const clearInput = () => {
+    setUserId('');
+    setPassword('');
+  };
 
   const toggleSignUpMode = () => {
     setSignUpMode((prev) => !prev);
-    setUserId('');
-    setUserPassword('');
+    clearInput();
+  };
+
+  const signUp = async () => {
+    try {
+      await axios.post(wrapRequestUrl(`/user`), { userId, password });
+      clearInput();
+      close();
+    } catch (error) {}
+  };
+
+  const signIn = async () => {
+    try {
+      await axios.post(wrapRequestUrl(`/user/sign-in`), { userId, password });
+      clearInput();
+      close();
+    } catch (error) {}
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (signUpMode) {
+      signUp();
+    } else {
+      signIn();
+    }
   };
 
   return (
@@ -33,13 +65,13 @@ export default function LoginModal({ open, onClose }: Props) {
             <button
               type="button"
               className="end-2.5 text-gray-400 ms-auto inline-flex justify-center items-center"
-              onClick={onClose}
+              onClick={close}
             >
               <CloseIcon />
             </button>
           </div>
           <div className="p-4 md:p-5">
-            <form className="space-y-4" action="#">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -68,8 +100,8 @@ export default function LoginModal({ open, onClose }: Props) {
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   required
-                  value={userPassword}
-                  onChange={(e) => setUserPassword(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <button

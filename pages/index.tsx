@@ -56,7 +56,7 @@ export default function Home() {
           </Link>
         ))}
       </main>
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+      <LoginModal open={loginOpen} close={() => setLoginOpen(false)} />
     </>
   );
 }
