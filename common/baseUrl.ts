@@ -1,21 +1,15 @@
-class UrlStorage {
-  private readonly KEY = 'backendUrl';
+import { BaseStorage } from './base-storage';
 
-  has(): boolean {
-    return localStorage && !!localStorage.getItem(this.KEY);
+class UrlStorage extends BaseStorage {
+  constructor() {
+    super('backendUrl');
   }
 
-  get(): string {
-    return localStorage.getItem(this.KEY) ?? '';
-  }
-
-  set(value: string): void {
+  validate(value: string): void {
     const urlRegex = /^(http|https):\/\/[^ "]+$/;
     if (!urlRegex.test(value)) {
       throw new Error('잘못된 형식의 URL입니다.');
     }
-
-    localStorage.setItem(this.KEY, value);
   }
 }
 const urlStorage = new UrlStorage();

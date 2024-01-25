@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { wrapRequestUrl } from '@/common/baseUrl';
 import CloseIcon from '@/components/icon/close-icon';
+import { SignInResponseDto } from '@/dto/SignInResponseDto';
+import { tokenStorage } from '@/common/token';
 
 type Props = {
   open: boolean;
@@ -35,7 +37,13 @@ export default function LoginModal({ open, close }: Props) {
 
   const signIn = async () => {
     try {
-      await axios.post(wrapRequestUrl(`/user/sign-in`), { userId, password });
+      const response = await axios.post(wrapRequestUrl(`/user/sign-in`), {
+        userId,
+        password,
+      });
+      const { token } = response.data as SignInResponseDto;
+      tokenStorage.set(token);
+
       clearInput();
       close();
     } catch (error) {}
