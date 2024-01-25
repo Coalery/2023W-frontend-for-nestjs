@@ -9,10 +9,13 @@ import Post from '@/components/post';
 import { GetPostResponseDto } from '@/dto/GetPostResponseDto';
 import { ListPostResponseDto } from '@/dto/ListPostResponseDto';
 import Link from 'next/link';
+import LoginModal from '@/components/login-modal';
 
 export default function Home() {
   const [postList, setPostList] = useState<ListPostResponseDto | null>(null);
   const [error, setError] = useState<any>(null);
+
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -33,7 +36,9 @@ export default function Home() {
   return (
     <>
       <div className="sticky top-0 top-menu-bar flex justify-between items-center p-2 w-96 h-12 mb-2">
-        <PersonIcon />
+        <button onClick={() => setLoginOpen(true)}>
+          <PersonIcon />
+        </button>
         <PencilIcon />
       </div>
       <main className="space-y-4">
@@ -51,6 +56,7 @@ export default function Home() {
           </Link>
         ))}
       </main>
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </>
   );
 }
