@@ -10,6 +10,7 @@ export abstract class BaseStorage {
   }
 
   set(value: string): void {
+    this.validate(value);
     localStorage.setItem(this.KEY, value);
   }
 

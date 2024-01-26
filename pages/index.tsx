@@ -10,14 +10,17 @@ import { GetPostResponseDto } from '@/dto/GetPostResponseDto';
 import { ListPostResponseDto } from '@/dto/ListPostResponseDto';
 import Link from 'next/link';
 import LoginModal from '@/components/login-modal';
+import { tokenStorage } from '@/common/token';
+import WriteModal from '@/components/write-modal';
 
 export default function Home() {
   const [postList, setPostList] = useState<ListPostResponseDto | null>(null);
   const [error, setError] = useState<any>(null);
 
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
+  const [writeOpen, setWriteOpen] = useState<boolean>(false);
 
-  const fetchData = useCallback(async () => {
+  const getPostList = useCallback(async () => {
     try {
       axios
         .get(wrapRequestUrl(`/posts`), { params: { offset: 0, limit: 10 } })
@@ -29,9 +32,15 @@ export default function Home() {
     }
   }, []);
 
+  const handleCloseWriteModal = () => {
+    setWriteOpen(false);
+    getPostList();
+  };
+
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    getPostList();
+    tokenStorage.load();
+  }, [getPostList]);
 
   return (
     <>
@@ -39,24 +48,29 @@ export default function Home() {
         <button onClick={() => setLoginOpen(true)}>
           <PersonIcon />
         </button>
-        <PencilIcon />
+        <button onClick={() => setWriteOpen(true)}>
+          <PencilIcon />
+        </button>
       </div>
       <main className="space-y-4">
         {error && <ErrorNotifier error={error} />}
         {postList?.posts.map((post: GetPostResponseDto) => (
-          <Link href={`/posts/${post.id}`} key={post.id}>
-            <Post
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              likeCount={post.likeCount}
-              commentCount={post.commentCount}
-              createdAt={new Date(post.createdAt)}
-            />
-          </Link>
+          <div key={post.id}>
+            <Link href={`/posts/${post.id}`}>
+              <Post
+                id={post.id}
+                title={post.title}
+                content={post.content}
+                likeCount={post.likeCount}
+                commentCount={post.commentCount}
+                createdAt={new Date(post.createdAt)}
+              />
+            </Link>
+          </div>
         ))}
       </main>
       <LoginModal open={loginOpen} close={() => setLoginOpen(false)} />
+      <WriteModal open={writeOpen} close={handleCloseWriteModal} />
     </>
   );
 }
