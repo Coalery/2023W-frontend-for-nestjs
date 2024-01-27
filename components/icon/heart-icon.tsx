@@ -1,6 +1,6 @@
 type Props = {
   count: number;
-  fill: boolean;
+  fill?: boolean;
 };
 
 export default function HeartIcon({ count, fill }: Props) {

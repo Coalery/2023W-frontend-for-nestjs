@@ -53,7 +53,7 @@ export default function Home() {
       </div>
       <main className="space-y-4">
         {error && <ErrorNotifier error={error} />}
-        {postList?.posts.map((post: GetPostResponseDto) => (
+        {postList?.posts.map((post) => (
           <div key={post.id}>
             <Link href={`/posts/${post.id}`}>
               <Post
