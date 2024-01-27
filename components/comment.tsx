@@ -25,8 +25,8 @@ export default function Comment({
   };
 
   return (
-    <>
-      <button className="w-full" onClick={() => setCommentEditOpen(true)}>
+    <div className="w-96">
+      <button className="w-96" onClick={() => setCommentEditOpen(true)}>
         <div className="flex justify-between m-4">
           <p className="text-sm">{content}</p>
           <p className="text-sm">{timeElapsed(createdAt)}</p>
@@ -38,6 +38,6 @@ export default function Comment({
         open={commentEditOpen}
         close={handleClose}
       />
-    </>
+    </div>
   );
 }

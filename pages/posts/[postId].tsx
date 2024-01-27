@@ -10,6 +10,7 @@ import ErrorNotifier from '@/components/error';
 import CommentWriteModal from '@/components/comment-write-modal';
 import PencilIcon from '@/components/icon/pencil-icon';
 import PrevIcon from '@/components/icon/prev-icon';
+import EditModal from '@/components/edit-modal';
 
 export default function Home() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function Home() {
   );
   const [error, setError] = useState<any>(null);
 
+  const [postEditOpen, setPostEditOpen] = useState<boolean>(false);
   const [commentWriteOpen, setCommentWriteOpen] = useState<boolean>(false);
 
   const loadData = useCallback(async () => {
@@ -45,6 +47,11 @@ export default function Home() {
     }
   }, [postId]);
 
+  const handlePostEditClose = () => {
+    setPostEditOpen(false);
+    loadData();
+  };
+
   const handleCommentWriteClose = () => {
     setCommentWriteOpen(false);
     loadData();
@@ -67,14 +74,25 @@ export default function Home() {
       <div>
         {error && <ErrorNotifier error={error} />}
         {postData && (
-          <Post
-            id={postData.id}
-            title={postData.title}
-            content={postData.content}
-            createdAt={new Date(postData.createdAt)}
-            likeCount={postData.likeCount}
-            commentCount={postData.commentCount}
-          />
+          <>
+            <button onClick={() => setPostEditOpen(true)}>
+              <Post
+                id={postData.id}
+                title={postData.title}
+                content={postData.content}
+                createdAt={new Date(postData.createdAt)}
+                likeCount={postData.likeCount}
+                commentCount={postData.commentCount}
+              />
+            </button>
+            <EditModal
+              open={postEditOpen}
+              close={handlePostEditClose}
+              postId={postData.id}
+              title={postData.title}
+              content={postData.content}
+            />
+          </>
         )}
         {commentData &&
           commentData.comments.map((comment) => (
