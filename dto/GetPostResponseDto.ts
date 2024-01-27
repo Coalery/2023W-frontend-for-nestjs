@@ -5,5 +5,6 @@ export interface GetPostResponseDto {
   content: string;
   likeCount: number;
   commentCount: number;
+  isLiked: boolean;
   createdAt: Date;
 }

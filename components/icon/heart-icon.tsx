@@ -1,8 +1,9 @@
 type Props = {
   count: number;
+  fill: boolean;
 };
 
-export default function HeartIcon({ count }: Props) {
+export default function HeartIcon({ count, fill }: Props) {
   return (
     <div className="flex items-center space-x-0.5">
       <svg
@@ -12,7 +13,7 @@ export default function HeartIcon({ count }: Props) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        fill="none"
+        fill={fill ? 'currentColor' : 'none'}
         strokeLinecap="round"
         strokeLinejoin="round"
         className="h-5 w-5 text-red-400"

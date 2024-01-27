@@ -21,7 +21,7 @@ export default function Post({
   return (
     <div className="p-4 border rounded-lg shadow-sm bg-white w-96">
       <h2 className="text-lg font-semibold line-clamp-1 text-start">{title}</h2>
-      <p className="mt-2 text-sm text-gray-500 break-all text-start">
+      <p className="mt-2 text-sm text-gray-500 break-all text-start line-clamp-2">
         {content}
       </p>
       <div className="mt-4 flex items-center justify-between">

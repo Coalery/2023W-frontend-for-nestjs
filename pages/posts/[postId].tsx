@@ -10,7 +10,7 @@ import ErrorNotifier from '@/components/error';
 import CommentWriteModal from '@/components/comment-write-modal';
 import PencilIcon from '@/components/icon/pencil-icon';
 import PrevIcon from '@/components/icon/prev-icon';
-import EditModal from '@/components/edit-modal';
+import PostDetail from '@/components/post-detail';
 
 export default function Home() {
   const router = useRouter();
@@ -22,7 +22,6 @@ export default function Home() {
   );
   const [error, setError] = useState<any>(null);
 
-  const [postEditOpen, setPostEditOpen] = useState<boolean>(false);
   const [commentWriteOpen, setCommentWriteOpen] = useState<boolean>(false);
 
   const loadData = useCallback(async () => {
@@ -47,11 +46,6 @@ export default function Home() {
     }
   }, [postId]);
 
-  const handlePostEditClose = () => {
-    setPostEditOpen(false);
-    loadData();
-  };
-
   const handleCommentWriteClose = () => {
     setCommentWriteOpen(false);
     loadData();
@@ -75,22 +69,15 @@ export default function Home() {
         {error && <ErrorNotifier error={error} />}
         {postData && (
           <>
-            <button onClick={() => setPostEditOpen(true)}>
-              <Post
-                id={postData.id}
-                title={postData.title}
-                content={postData.content}
-                createdAt={new Date(postData.createdAt)}
-                likeCount={postData.likeCount}
-                commentCount={postData.commentCount}
-              />
-            </button>
-            <EditModal
-              open={postEditOpen}
-              close={handlePostEditClose}
-              postId={postData.id}
+            <PostDetail
+              id={postData.id}
               title={postData.title}
               content={postData.content}
+              createdAt={new Date(postData.createdAt)}
+              likeCount={postData.likeCount}
+              commentCount={postData.commentCount}
+              isLiked={postData.isLiked}
+              onEdit={loadData}
             />
           </>
         )}

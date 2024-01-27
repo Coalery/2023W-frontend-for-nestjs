@@ -8,7 +8,9 @@ export class TokenStorage extends BaseStorage {
 
   load(): void {
     const value = this.get();
-    axios.defaults.headers['Authorization'] = `Bearer ${value}`;
+    if (value) {
+      axios.defaults.headers['Authorization'] = `Bearer ${value}`;
+    }
   }
 
   set(value: string): void {
