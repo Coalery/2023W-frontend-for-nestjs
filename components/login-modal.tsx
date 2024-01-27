@@ -37,10 +37,14 @@ export default function LoginModal({ open, close }: Props) {
 
   const signIn = async () => {
     try {
-      const response = await axios.post(wrapRequestUrl(`/user/sign-in`), {
-        userId,
-        password,
-      });
+      const response = await axios.post(
+        wrapRequestUrl(`/user/sign-in`),
+        {
+          userId,
+          password,
+        },
+        { headers: { Authorization: null } }
+      );
       const { token } = response.data as SignInResponseDto;
       tokenStorage.set(token);
 
