@@ -1,31 +1,39 @@
 import axios from 'axios';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 import { wrapRequestUrl } from '@/common/baseUrl';
 import ErrorNotifier from '@/components/error';
 import PencilIcon from '@/components/icon/pencil-icon';
 import PersonIcon from '@/components/icon/person-icon';
 import Post from '@/components/post';
-import { GetPostResponseDto } from '@/dto/GetPostResponseDto';
-import { ListPostResponseDto } from '@/dto/ListPostResponseDto';
+import { ListPostResponseDto, PostResponse } from '@/dto/ListPostResponseDto';
 import Link from 'next/link';
 import LoginModal from '@/components/login-modal';
-import { tokenStorage } from '@/common/token';
 import WriteModal from '@/components/write-modal';
 
 export default function Home() {
-  const [postList, setPostList] = useState<ListPostResponseDto | null>(null);
+  const limit = 5;
+  const count = useRef(-1);
+  const offset = useRef(0);
+  const [posts, setPosts] = useState<PostResponse[]>(new Array<PostResponse>());
   const [error, setError] = useState<any>(null);
 
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [writeOpen, setWriteOpen] = useState<boolean>(false);
 
-  const getPostList = useCallback(async () => {
+  const getPostList = useCallback((reset: boolean) => {
     try {
+      offset.current = reset ? 0 : offset.current + limit;
       axios
-        .get(wrapRequestUrl(`/posts`), { params: { offset: 0, limit: 10 } })
+        .get(wrapRequestUrl(`/posts`), {
+          params: { offset: offset.current, limit },
+        })
         .then((res) => {
-          setPostList(res.data);
+          const data: ListPostResponseDto = res.data;
+
+          const posts = data.posts;
+          setPosts((prev) => (reset ? posts : prev.concat(posts)));
+          count.current = data.count;
         });
     } catch (error) {
       setError(error);
@@ -34,11 +42,11 @@ export default function Home() {
 
   const handleCloseWriteModal = () => {
     setWriteOpen(false);
-    getPostList();
+    getPostList(true);
   };
 
   useEffect(() => {
-    getPostList();
+    getPostList(true);
   }, [getPostList]);
 
   return (
@@ -53,7 +61,7 @@ export default function Home() {
       </div>
       <main className="space-y-4">
         {error && <ErrorNotifier error={error} />}
-        {postList?.posts.map((post) => (
+        {posts.map((post) => (
           <div key={post.id}>
             <Link href={`/posts/${post.id}`}>
               <Post
@@ -67,6 +75,13 @@ export default function Home() {
             </Link>
           </div>
         ))}
+        {posts.length !== count.current && (
+          <button onClick={() => getPostList(false)}>
+            <div className="w-96 h-12 rounded-lg bg-gray-100 hover:bg-gray-200 flex justify-center items-center">
+              <span className="text-gray-500 text-sm">더 불러오기</span>
+            </div>
+          </button>
+        )}
       </main>
       <LoginModal open={loginOpen} close={() => setLoginOpen(false)} />
       <WriteModal open={writeOpen} close={handleCloseWriteModal} />
