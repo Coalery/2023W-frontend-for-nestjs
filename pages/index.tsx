@@ -10,6 +10,7 @@ import { ListPostResponseDto, PostResponse } from '@/dto/ListPostResponseDto';
 import Link from 'next/link';
 import LoginModal from '@/components/login-modal';
 import WriteModal from '@/components/write-modal';
+import OnlyPost from '@/components/only-post';
 
 export default function Home() {
   const limit = 5;
@@ -63,16 +64,14 @@ export default function Home() {
         {error && <ErrorNotifier error={error} />}
         {posts.map((post) => (
           <div key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <Post
-                id={post.id}
-                title={post.title}
-                content={post.content}
-                likeCount={post.likeCount}
-                commentCount={post.commentCount}
-                createdAt={new Date(post.createdAt)}
-              />
-            </Link>
+            {/* <Link href={`/posts/${post.id}`}> */}
+            <OnlyPost
+              id={post.id}
+              title={post.title}
+              content={post.content}
+              createdAt={new Date(post.createdAt)}
+            />
+            {/* </Link> */}
           </div>
         ))}
         {posts.length !== count.current && (

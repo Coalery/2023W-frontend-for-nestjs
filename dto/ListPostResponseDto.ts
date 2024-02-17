@@ -4,8 +4,6 @@ export interface PostResponse {
   title: string;
   content: string;
   createdAt: Date;
-  likeCount: number;
-  commentCount: number;
 }
 
 export interface ListPostResponseDto {
