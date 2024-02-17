@@ -5,12 +5,10 @@ import { wrapRequestUrl } from '@/common/baseUrl';
 import ErrorNotifier from '@/components/error';
 import PencilIcon from '@/components/icon/pencil-icon';
 import PersonIcon from '@/components/icon/person-icon';
-import Post from '@/components/post';
 import { ListPostResponseDto, PostResponse } from '@/dto/ListPostResponseDto';
-import Link from 'next/link';
 import LoginModal from '@/components/login-modal';
 import WriteModal from '@/components/write-modal';
-import OnlyPost from '@/components/only-post';
+import OnlyPostDetail from '@/components/only-post-detail';
 
 export default function Home() {
   const limit = 5;
@@ -64,14 +62,13 @@ export default function Home() {
         {error && <ErrorNotifier error={error} />}
         {posts.map((post) => (
           <div key={post.id}>
-            {/* <Link href={`/posts/${post.id}`}> */}
-            <OnlyPost
+            <OnlyPostDetail
               id={post.id}
               title={post.title}
               content={post.content}
               createdAt={new Date(post.createdAt)}
+              onEdit={() => getPostList(true)}
             />
-            {/* </Link> */}
           </div>
         ))}
         {posts.length !== count.current && (
