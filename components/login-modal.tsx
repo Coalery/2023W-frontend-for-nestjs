@@ -29,7 +29,7 @@ export default function LoginModal({ open, close }: Props) {
 
   const signUp = async () => {
     try {
-      await axios.post(wrapRequestUrl(`/user`), { userId, password });
+      await axios.post(wrapRequestUrl(`/users`), { userId, password });
       clearInput();
       close();
     } catch (error) {}
@@ -38,7 +38,7 @@ export default function LoginModal({ open, close }: Props) {
   const signIn = async () => {
     try {
       const response = await axios.post(
-        wrapRequestUrl(`/user/sign-in`),
+        wrapRequestUrl(`/login`),
         {
           userId,
           password,
